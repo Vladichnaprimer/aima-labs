@@ -1,0 +1,87 @@
+body {
+  background: linear-gradient(to right, #3d5c5e 45%, #244749 100%);
+}
+.navbar-default {
+  padding: 8px;
+  box-shadow: 0 0 10px rgba(0,0,0,0.7);
+}
+
+.brand{
+  width: 45px;
+  height: 45px;
+  margin-top: -10px;
+}
+
+.croupie {
+  width: 200px;
+  height: 200px;
+}
+
+.backwards{
+  width: 80px;
+  height: 80px;
+  padding: 10px;
+  margin-left: -30px;
+}
+
+.gain{
+  width: 100px;
+  height: 100px;
+  padding: 10px;
+}
+
+.agent-cards{
+  width: 150px;
+  height: 150px;
+  padding: 10px;
+}
+
+.other-agent-cards{
+  width: 120px;
+  height: 120px;
+  padding: 10px;
+}
+
+.first{
+  margin-left: 50px;
+}
+.second{
+  margin-left: 0px;
+}
+
+
+.table{
+  background-color: #3c9644;
+  border: 15px groove #846729;
+  border-radius: 50px 50px 50px 50px;
+  padding: 10px;
+  width: 1000px;
+  margin-left: 80px;
+}
+
+.environment{
+  box-shadow: 0 0 10px rgba(0,0,0,0.5);
+}
+
+a {
+  color: black;
+}
+a:hover {
+  text-decoration: none;
+  color: green;
+}
+
+h4{
+  font-family: 'Raleway', sans-serif;
+  font-size: 200%;
+  color: #c40000;
+  text-align: center;
+  font-style: italic;
+}
+h5 {
+  font-family: 'Raleway', sans-serif;
+  font-size: 150%;
+  color: #c40000;
+  text-align: center;
+  font-style: italic;
+}

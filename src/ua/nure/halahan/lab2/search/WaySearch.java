@@ -45,14 +45,14 @@ public class WaySearch extends AbstractEnvironment {
 
         Map<String, Integer> sibiu = new LinkedHashMap<String, Integer>();
         sibiu.put(ORADEA, 151);
-        sibiu.put(ARAD, 140);
         sibiu.put(FAGARAS, 99);
+        sibiu.put(ARAD, 140);
         sibiu.put(RIMNICU_VILCEA, 80);
         ways.put(SIBIU, sibiu);
 
         Map<String, Integer> zerind = new LinkedHashMap<String, Integer>();
-        zerind.put(ARAD, 75);
         zerind.put(ORADEA, 71);
+        zerind.put(ARAD, 75);
         ways.put(ZERIND, zerind);
 
         Map<String, Integer> arad = new LinkedHashMap<String, Integer>();
@@ -62,8 +62,8 @@ public class WaySearch extends AbstractEnvironment {
         ways.put(ARAD, arad);
 
         Map<String, Integer> timisoara = new LinkedHashMap<String, Integer>();
-        timisoara.put(ARAD, 118);
         timisoara.put(LUGOJ, 111);
+        timisoara.put(ARAD, 118);
         ways.put(TIMISOARA, timisoara);
 
         Map<String, Integer> lugoj = new LinkedHashMap<String, Integer>();
@@ -83,20 +83,20 @@ public class WaySearch extends AbstractEnvironment {
 
         Map<String, Integer> craiova = new LinkedHashMap<String, Integer>();
         craiova.put(DOBRETA, 120);
-        craiova.put(RIMNICU_VILCEA, 146);
         craiova.put(PITESTI, 138);
+        craiova.put(RIMNICU_VILCEA, 146);
         ways.put(CRAIOVA, craiova);
 
         Map<String, Integer> rimnicuVilcea = new LinkedHashMap<String, Integer>();
         rimnicuVilcea.put(SIBIU, 80);
-        rimnicuVilcea.put(CRAIOVA, 146);
         rimnicuVilcea.put(PITESTI, 97);
+        rimnicuVilcea.put(CRAIOVA, 146);
         ways.put(RIMNICU_VILCEA, rimnicuVilcea);
 
         Map<String, Integer> pitesti = new LinkedHashMap<String, Integer>();
-        pitesti.put(CRAIOVA, 138);
         pitesti.put(RIMNICU_VILCEA, 97);
         pitesti.put(BUCHAREST, 101);
+        pitesti.put(CRAIOVA, 138);
         ways.put(PITESTI, pitesti);
 
         Map<String, Integer> fegaras = new LinkedHashMap<String, Integer>();
@@ -105,10 +105,10 @@ public class WaySearch extends AbstractEnvironment {
         ways.put(FAGARAS, fegaras);
 
         Map<String, Integer> bucharest = new LinkedHashMap<String, Integer>();
-        bucharest.put(FAGARAS, 211);
-        bucharest.put(PITESTI, 101);
-        bucharest.put(GIURGIU, 90);
         bucharest.put(URZICENI, 85);
+        bucharest.put(GIURGIU, 90);
+        bucharest.put(PITESTI, 101);
+        bucharest.put(FAGARAS, 211);
         ways.put(BUCHAREST, bucharest);
 
         Map<String, Integer> giurgiu = new LinkedHashMap<String, Integer>();
@@ -117,18 +117,18 @@ public class WaySearch extends AbstractEnvironment {
 
         Map<String, Integer> urziceni = new LinkedHashMap<String, Integer>();
         urziceni.put(BUCHAREST, 85);
-        urziceni.put(VASLUI, 142);
         urziceni.put(HIRSOVA, 98);
+        urziceni.put(VASLUI, 142);
         ways.put(URZICENI, urziceni);
 
         Map<String, Integer> vaslui = new LinkedHashMap<String, Integer>();
-        vaslui.put(URZICENI, 142);
         vaslui.put(IASI, 99);
+        vaslui.put(URZICENI, 142);
         ways.put(VASLUI, vaslui);
 
         Map<String, Integer> lasi = new LinkedHashMap<String, Integer>();
-        lasi.put(VASLUI, 99);
         lasi.put(NEAMT, 87);
+        lasi.put(VASLUI, 99);
         ways.put(IASI, lasi);
 
         Map<String, Integer> neamt = new LinkedHashMap<String, Integer>();
@@ -136,8 +136,8 @@ public class WaySearch extends AbstractEnvironment {
         ways.put(NEAMT, neamt);
 
         Map<String, Integer> hirsova = new LinkedHashMap<String, Integer>();
-        hirsova.put(URZICENI, 98);
         hirsova.put(EFORIE, 86);
+        hirsova.put(URZICENI, 98);
         ways.put(HIRSOVA, hirsova);
 
         Map<String, Integer> eforie = new LinkedHashMap<String, Integer>();
@@ -145,38 +145,39 @@ public class WaySearch extends AbstractEnvironment {
         ways.put(EFORIE, eforie);
     }
 
-    public int easySearch(String from, String to) {
+    public int search(String from, String to){
         int result = 0;
-        String currentLocation = from;
-        String lastLocation = from;
-        int i = 20;
-        while(!currentLocation.equals(to) && i!=50) {
-            Map<String, Integer> currentCity = this.ways.get(currentLocation);
-            int minWay = Integer.MAX_VALUE;
-            String minCity = "";
-            for(Entry<String, Integer> way : currentCity.entrySet()) {
-                String key = way.getKey();
-                if(way.getValue() < minWay && !key.equals(lastLocation)) {
-                    minWay = way.getValue();
-                    minCity = key;
+        String curLocation = from;
+        String prevLocation = from;
+
+        int cities = 0;
+
+        while (!curLocation.equals(to)){
+            Map<String, Integer> city = ways.get(curLocation);
+            int way = Integer.MAX_VALUE;
+            String nextCity = "";
+            for(Entry<String, Integer> w : city.entrySet()){
+                String k = w.getKey();
+                if(w.getValue() < way && !k.equals(prevLocation)){
+                    way = w.getValue();
+                    nextCity = k;
                 }
             }
-            System.out.println(currentLocation + " -- " + minCity + " = " + (result+minWay) + " km");
-            result += minWay;
-            lastLocation = currentLocation;
-            currentLocation = minCity;
-            i++;
+            System.out.println(curLocation  + " - " + nextCity + " : " + "total " + (result+way) + " km" );
+            result += way;
+            prevLocation = curLocation;
+            curLocation = nextCity;
+            cities++;
         }
-
         return result;
     }
 
     public WaySearch() {
-        this.initialization();
+        initialization();
     }
 
     @Override
-    public EnvironmentState executeAction(Agent arg0, Action arg1) {
+    public EnvironmentState executeAction(Agent agent, Action action) {
         return null;
     }
 
@@ -191,7 +192,7 @@ public class WaySearch extends AbstractEnvironment {
     }
 
     public static void main(String[] args) {
-        WaySearch test = new WaySearch();
-        test.easySearch(ARAD, "Bucharest");
+        WaySearch roadToBucharest = new WaySearch();
+        roadToBucharest.search(ARAD, BUCHAREST);
     }
 }
